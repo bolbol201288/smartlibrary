@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Smart Library — Ma bibliothèque</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="page-header">
+      <a class="brand" href="#" aria-label="Smart Library, accueil">
+        <span class="brand-mark" aria-hidden="true">SL</span>
+        <span>Smart Library</span>
+      </a>
+      <div class="page-heading">
+        <p class="eyebrow">Votre collection, en un seul endroit</p>
+        <h1>Ma bibliothèque</h1>
+        <p class="page-description">Suivez vos livres et gérez facilement les emprunts.</p>
+      </div>
+    </header>
+
+    <section class="stats-grid" aria-label="Résumé de la collection">
+      <article class="stat-card stat-total">
+        <span class="stat-label">Total des livres</span>
+        <strong class="stat-value" id="total-count">0</strong>
+        <span class="stat-detail">dans votre collection</span>
+      </article>
+      <article class="stat-card stat-available">
+        <span class="stat-label">Disponibles</span>
+        <strong class="stat-value" id="available-count">0</strong>
+        <span class="stat-detail">prêts à être empruntés</span>
+      </article>
+      <article class="stat-card stat-borrowed">
+        <span class="stat-label">Empruntés</span>
+        <strong class="stat-value" id="borrowed-count">0</strong>
+        <span class="stat-detail">actuellement en prêt</span>
+      </article>
+    </section>
+
+    <div class="workspace">
+      <aside class="panel form-panel" aria-labelledby="form-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Enrichir la collection</p>
+            <h2 id="form-title">Ajouter un livre</h2>
+          </div>
+          <span class="heading-icon" aria-hidden="true">+</span>
+        </div>
+
+        <p class="panel-intro">Les champs marqués d’un astérisque sont obligatoires.</p>
+        <form id="book-form">
+          <label for="title">Titre <span aria-hidden="true">*</span></label>
+          <input id="title" name="title" type="text" maxlength="160" autocomplete="off" required>
+
+          <label for="author">Auteur <span aria-hidden="true">*</span></label>
+          <input id="author" name="author" type="text" maxlength="120" autocomplete="off" required>
+
+          <label for="category">Catégorie <span aria-hidden="true">*</span></label>
+          <input id="category" name="category" type="text" maxlength="60" placeholder="Ex. Roman, Histoire…" autocomplete="off" required>
+
+          <label for="isbn">ISBN <span class="optional-label">(facultatif)</span></label>
+          <input id="isbn" name="isbn" type="text" maxlength="24" inputmode="text" placeholder="Ex. 978-2-07-036002-4" autocomplete="off" aria-describedby="isbn-help">
+          <small class="field-help" id="isbn-help">ISBN-10 ou ISBN-13, avec ou sans tirets.</small>
+
+          <button class="button button-primary submit-button" type="submit">
+            <span aria-hidden="true">+</span>
+            Ajouter à la bibliothèque
+          </button>
+        </form>
+      </aside>
+
+      <section class="panel collection-panel" aria-labelledby="collection-title">
+        <div class="collection-heading">
+          <div>
+            <p class="eyebrow">Tout retrouver rapidement</p>
+            <h2 id="collection-title">Ma collection</h2>
+          </div>
+          <span class="result-count" id="result-count" aria-live="polite">0 livre affiché</span>
+        </div>
+
+        <div class="filters" role="search" aria-label="Rechercher et filtrer les livres">
+          <label class="search-field" for="search">
+            <span class="search-icon" aria-hidden="true"></span>
+            <input id="search" type="search" placeholder="Rechercher un titre ou un auteur…" autocomplete="off">
+          </label>
+
+          <label class="visually-hidden" for="status-filter">Filtrer par statut</label>
+          <select id="status-filter">
+            <option value="">Tous les statuts</option>
+            <option value="DISPONIBLE">Disponibles</option>
+            <option value="EMPRUNTE">Empruntés</option>
+          </select>
+
+          <label class="visually-hidden" for="category-filter">Filtrer par catégorie</label>
+          <select id="category-filter">
+            <option value="">Toutes les catégories</option>
+          </select>
+
+          <label class="visually-hidden" for="sort-order">Trier les livres</label>
+          <select id="sort-order">
+            <option value="newest">Ajoutés récemment</option>
+            <option value="oldest">Ajoutés en premier</option>
+            <option value="title">Titre (A à Z)</option>
+            <option value="author">Auteur (A à Z)</option>
+          </select>
+        </div>
+
+        <div id="book-list" class="book-grid" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <p id="app-message" class="app-message" role="status" aria-live="polite" hidden></p>
+    <footer class="page-footer">Vos données sont enregistrées localement dans ce navigateur.</footer>
+  </main>
+</body>
+</html>
